@@ -1,0 +1,5 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "echo 'ERROR: Deploy the Svelte UI repo (eylernur/genome-firewall-ui) to Vercel — not this Python backend.' && exit 1",
+  "installCommand": "echo 'skip'"
+}
