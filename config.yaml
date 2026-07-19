@@ -1,0 +1,73 @@
+# Genome Firewall — central config. Every module reads this.
+project:
+  name: genome-firewall
+  seed: 42
+
+# ---- Scope (do one species + a few drugs WELL) ----
+species:
+  name: "Klebsiella pneumoniae"
+  amrfinder_organism: "Klebsiella_pneumoniae"   # value for `amrfinder --organism`
+  bvbrc_taxon_name: "Klebsiella pneumoniae"     # used to filter the AMR phenotype table
+  bvbrc_taxon_id: 573                            # NCBI taxon id (573 = K. pneumoniae) for the Data API
+
+antibiotics:                                    # standardized names (must match BV-BRC after normalization)
+  - ciprofloxacin
+  - gentamicin
+  - meropenem
+  - ceftazidime
+  # - trimethoprim/sulfamethoxazole   # add a 5th only if labels are plentiful
+
+# ---- Label rule ----
+labels:
+  resistant_value: "Resistant"     # -> "likely to fail"
+  susceptible_value: "Susceptible" # -> "likely to work"
+  drop_values: ["Intermediate", "Non-susceptible", "Not defined"]
+  # Only keep laboratory-measured phenotypes. Exclude model/computational predictions.
+  keep_lab_methods_contains: ["MIC", "Disk", "disk diffusion", "Broth", "Agar", "Etest", "VITEK", "MicroScan"]
+  # rows whose typing method does not match the above (e.g. "Computational Prediction") are dropped
+
+# ---- Module 01: annotation / features ----
+features:
+  min_identity: 90.0    # % identity threshold for calling an AMR feature "present"
+  min_coverage: 90.0    # % coverage threshold
+  include_point_mutations: true
+  matrix_path: "data/processed/features.parquet"
+  dictionary_path: "data/processed/feature_dictionary.csv"
+
+# ---- Module 02: homology split + model ----
+split:
+  method: "mash"        # mash | mmseqs | cdhit
+  homology_threshold: 0.99   # genomes >= this similarity go in the SAME group (never split)
+  test_frac: 0.2
+  calib_frac: 0.15      # taken from the non-test portion, used ONLY for calibration
+  n_folds: 5
+  splits_path: "data/processed/splits.json"
+
+model:
+  penalty: "l2"
+  C: 1.0
+  class_weight: "balanced"
+  calibration: "auto"   # auto -> isotonic if >=200 calib samples else sigmoid(Platt)
+  models_dir: "models"
+
+# ---- Module 03: no-call + report ----
+nocall:
+  uncertain_low: 0.40   # calibrated prob in [low, high] -> no-call (tune on calib split)
+  uncertain_high: 0.60
+  ood_min_similarity: 0.85   # if genome's max similarity to any training cluster < this -> no-call (OOD)
+  gate_conflict_is_nocall: true
+
+report:
+  lab_banner: "Research prototype. Every result must be confirmed by standard laboratory testing. Not for clinical use."
+  defensive_note: "Defensive use only: this tool predicts and explains resistance that already exists. It never designs, modifies, or optimizes organisms."
+
+# ---- Optional LLM prose layer ----
+llm:
+  enabled: false        # set true and export OPENAI_API_KEY to enable plain-language explanations
+  model: "gpt-4o-mini"  # cheap; explanations are rendered ONLY from structured facts
+
+paths:
+  raw_dir: "data/raw"
+  interim_dir: "data/interim"
+  processed_dir: "data/processed"
+  drugs_csv: "drugs.csv"

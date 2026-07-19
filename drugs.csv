@@ -1,0 +1,5 @@
+antibiotic,drug_class,molecular_target_genes,known_resistance_examples,intrinsic_notes
+ciprofloxacin,fluoroquinolone,"gyrA;gyrB;parC;parE","gyrA_S83L;parC_S80I;qnrB;qnrS;aac(6')-Ib-cr;oqxA;oqxB","Target = DNA gyrase + topoisomerase IV. Resistance via target mutations + plasmid qnr + efflux."
+gentamicin,aminoglycoside,"rpsL;16S_rRNA(rrs);fusA","aac(3)-IIa;aac(6')-Ib;aph(3')-VI; armA;rmtB","Target = 30S ribosome. Resistance mainly via aminoglycoside-modifying enzymes + 16S methyltransferases (arm/rmt)."
+meropenem,carbapenem,"ftsI;pbp1a;pbp2;pbp3","blaKPC;blaNDM;blaOXA-48;blaVIM;blaIMP;ompK35_loss;ompK36_loss","Target = penicillin-binding proteins. Resistance via carbapenemases + porin loss (ompK)."
+ceftazidime,cephalosporin_3g,"ftsI;pbp3","blaCTX-M;blaSHV(ESBL);blaTEM(ESBL);blaCMY;ampC_overexpression","Target = PBPs. Resistance via ESBL / AmpC beta-lactamases."

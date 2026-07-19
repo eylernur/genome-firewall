@@ -1,0 +1,29 @@
+# raw genomes (~24 GB) and intermediate annotation — re-downloadable, keep OUT of git
+data/raw/*
+data/interim/*
+!data/**/.gitkeep
+
+# processed artifacts: keep the small, useful ones (labels, features, splits, dictionary)
+# so the repo is runnable/inspectable; they are only a few MB total.
+data/processed/*
+!data/processed/.gitkeep
+!data/processed/labels.parquet
+!data/processed/features.parquet
+!data/processed/splits.json
+!data/processed/feature_dictionary.csv
+
+# trained models are small (~KB) and needed to run the app -> keep them
+# (reports pngs kept too for the demo)
+gf_results.tar.gz
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.env
+.ipynb_checkpoints/
+
+# amrfinder db cache
+amrfinder_db/
+Miniforge3-*.sh
+.DS_Store
