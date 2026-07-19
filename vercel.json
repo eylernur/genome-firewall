@@ -1,8 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
-  "installCommand": "npm install --prefix ui",
-  "buildCommand": "npm run build --prefix ui",
+  "installCommand": "cd ui && npm ci",
+  "buildCommand": "cd ui && npm run build",
   "outputDirectory": "ui/dist",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
