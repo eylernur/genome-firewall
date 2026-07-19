@@ -18,7 +18,7 @@ designs, modifies, strengthens, or optimizes an organism.
 |---|---|---|
 | **01 Genome Reader** | `src/ingest_bvbrc.py`, `src/annotate.py`, `src/features.py` | FASTA → AMRFinderPlus → presence/absence feature matrix (+ dictionary of known mechanisms) |
 | **02 Predictor** | `src/cluster_split.py`, `src/target_gate.py`, `src/train.py` | homology-grouped split • drug-target gate • per-drug **calibrated** logistic regression |
-| **03 Decision Report** | `src/nocall.py`, `src/explain.py`, `src/predict.py`, `src/evaluate.py`, `src/api.py`, `app/streamlit_app.py` | no-call logic • honest evidence • FastAPI + Streamlit • held-out metrics |
+| **03 Decision Report** | `src/nocall.py`, `src/explain.py`, `src/predict.py`, `src/evaluate.py`, `src/api.py`, `app/streamlit_app.py`, **`ui/`** | no-call logic • honest evidence • FastAPI + Streamlit + **Svelte UI** |
 
 ## Quickstart
 
@@ -32,34 +32,34 @@ amrfinder --update          # one-time: download the AMR database
 make smoke                  # tiny 20-genome wiring test, OR:
 make all                    # ingest -> annotate -> features -> split -> train -> evaluate
 
-# 3. demo (either UI)
+# 3. demo
 make app                    # Streamlit decision report
-make api                    # FastAPI for the sibling Svelte UI (port 8000)
+make api                    # FastAPI for the Svelte UI (port 8000)
 make test                   # unit tests incl. the leakage guard
-```
 
-### Svelte UI (sibling repo)
-
-The frontend lives next to this repo as [`genome-firewall-ui`](https://github.com/eylernur/genome-firewall-ui):
-
-```bash
-# terminal A — this repo
-conda activate genome-firewall
-make api
-
-# terminal B — UI
-cd ../genome-firewall-ui
-cp .env.example .env.local   # VITE_API_URL=http://127.0.0.1:8000
-npm install && npm run dev
+# 4. Svelte UI (same repo, folder ui/)
+cd ui && cp .env.example .env.local && npm install && npm run dev
 ```
 
 `POST /predict` accepts a FASTA upload and returns the same JSON as `predict_report()`.
 
-### Deploy (hackathon)
+### Deploy (hackathon) — one GitHub repo
 
-- **UI → Vercel** (static Vite build). Set env `VITE_API_URL` to your public API base.
-- **API → not Vercel.** Predictions need AMRFinder + conda + ~1–2 min CPU. Run on a laptop (`make api-public` + [ngrok](https://ngrok.com) for HTTPS) or EC2/VM with HTTPS.
-- Browser calls the API **directly** (CORS is open). Vercel HTTPS pages require an **HTTPS** API URL (mixed content otherwise).
+Import **`eylernur/genome-firewall`** on Vercel (not a second UI repo). Root `vercel.json` builds `ui/` only.
+
+| Piece | Where | Notes |
+|-------|--------|--------|
+| **UI** | **Vercel** ← this repo | Static Vite app in `ui/` |
+| **API** | Laptop + ngrok, or EC2 | Not Vercel — needs AMRFinder (~1–2 min/genome) |
+
+```bash
+# public API for the live Vercel site
+make api-public
+ngrok http 8000
+# Vercel → Settings → Environment Variables → VITE_API_URL=https://….ngrok-free.app → Redeploy
+```
+
+Without `VITE_API_URL`, the Vercel site still loads in **mock demo** mode.
 
 ## Configuration
 

@@ -3,7 +3,7 @@
 
 PY=python src
 
-.PHONY: all ingest annotate features split train evaluate app api test smoke clean
+.PHONY: all ingest annotate features split train evaluate app api api-public ui test smoke clean
 
 all: ingest annotate features split train evaluate
 
@@ -36,6 +36,9 @@ api:         ## FastAPI backend for the Svelte UI (http://127.0.0.1:8000)
 
 api-public:  ## bind 0.0.0.0 for remote clients (EC2 / ngrok / Vercel UI)
 	python -m uvicorn src.api:app --host 0.0.0.0 --port 8000
+
+ui:          ## Svelte decision report (needs: make api in another terminal)
+	cd ui && npm install && npm run dev
 
 test:        ## unit tests incl. leakage guard
 	python -m pytest tests/ -q

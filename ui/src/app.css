@@ -1,0 +1,112 @@
+/* Amigo Design System v1.0 — Clinical AI tokens
+   Source: Amigo Design System.html
+   Editorial serif voice, warm paper, terracotta conviction, deep-sea ink. */
+
+:root {
+  /* Color */
+  --bg-base: #faf7f1; /* Paper — page background */
+  --bg-elevated: #fffdf9;
+  --bg-sunken: #f0e9dc;
+  --bg-line: #e2dbce;
+  --border: #c9c1b1;
+  --fg-ink: #1c1b18; /* Ink — headlines, primary actions */
+  --fg-body: #56503f;
+  --fg-muted: #8a8272;
+  --fg-subtle: #6e675c;
+  --accent: #bc4b26; /* Terracotta */
+  --accent-hover: #93391b;
+  --accent-deep: #16333a; /* Deep Sea — dark panels */
+  --accent-alt: #a34a2e;
+
+  /* Semantic (mapped onto Amigo alert/status tokens) */
+  --fail: #bc4b26;
+  --fail-bg: #f3e2db;
+  --fail-line: #e5c9bd;
+  --work: #2c5e3a;
+  --work-bg: #e4ede6;
+  --work-line: #c6d8cb;
+  --nocall: #7a5a2e;
+  --nocall-bg: #f0e9dc;
+  --nocall-line: #e2d5bc;
+  --info-bg: #dce7e5;
+  --info-line: #9db4b0;
+
+  /* Type */
+  --font-display: 'Newsreader', 'Times New Roman', serif;
+  --font-body: 'Instrument Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Radius & elevation */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-card: 12px; /* Amigo cards/panels (between r-md and r-lg) */
+  --r-lg: 16px;
+  --r-pill: 999px;
+  --shadow-card: 0 12px 32px rgba(28, 27, 24, 0.1), 0 2px 6px rgba(28, 27, 24, 0.06);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--fg-ink);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg-base);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
