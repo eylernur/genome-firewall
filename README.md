@@ -18,7 +18,7 @@ designs, modifies, strengthens, or optimizes an organism.
 |---|---|---|
 | **01 Genome Reader** | `src/ingest_bvbrc.py`, `src/annotate.py`, `src/features.py` | FASTA → AMRFinderPlus → presence/absence feature matrix (+ dictionary of known mechanisms) |
 | **02 Predictor** | `src/cluster_split.py`, `src/target_gate.py`, `src/train.py` | homology-grouped split • drug-target gate • per-drug **calibrated** logistic regression |
-| **03 Decision Report** | `src/nocall.py`, `src/explain.py`, `src/predict.py`, `src/evaluate.py`, `app/streamlit_app.py` | no-call logic • honest evidence category • Streamlit app • held-out metrics |
+| **03 Decision Report** | `src/nocall.py`, `src/explain.py`, `src/predict.py`, `src/evaluate.py`, `src/api.py`, `app/streamlit_app.py` | no-call logic • honest evidence • FastAPI + Streamlit • held-out metrics |
 
 ## Quickstart
 
@@ -32,10 +32,28 @@ amrfinder --update          # one-time: download the AMR database
 make smoke                  # tiny 20-genome wiring test, OR:
 make all                    # ingest -> annotate -> features -> split -> train -> evaluate
 
-# 3. demo
-make app                    # streamlit run app/streamlit_app.py
+# 3. demo (either UI)
+make app                    # Streamlit decision report
+make api                    # FastAPI for the sibling Svelte UI (port 8000)
 make test                   # unit tests incl. the leakage guard
 ```
+
+### Svelte UI (sibling repo)
+
+The frontend lives next to this repo as [`genome-firewall-ui`](https://github.com/eylernur/genome-firewall-ui):
+
+```bash
+# terminal A — this repo
+conda activate genome-firewall
+make api
+
+# terminal B — UI
+cd ../genome-firewall-ui
+cp .env.example .env.local   # VITE_API_URL=http://127.0.0.1:8000
+npm install && npm run dev
+```
+
+`POST /predict` accepts a FASTA upload and returns the same JSON as `predict_report()`.
 
 ## Configuration
 

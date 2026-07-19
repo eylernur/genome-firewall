@@ -11,5 +11,8 @@ pyyaml
 tqdm
 joblib
 streamlit
+fastapi
+uvicorn[standard]
+python-multipart
 requests
 openai>=1.0

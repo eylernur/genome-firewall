@@ -27,3 +27,5 @@ __pycache__/
 amrfinder_db/
 Miniforge3-*.sh
 .DS_Store
+PITCH.md
+DEMO_SCRIPT.md

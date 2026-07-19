@@ -3,7 +3,7 @@
 
 PY=python src
 
-.PHONY: all ingest annotate features split train evaluate app test smoke clean
+.PHONY: all ingest annotate features split train evaluate app api test smoke clean
 
 all: ingest annotate features split train evaluate
 
@@ -30,6 +30,9 @@ evaluate:    ## held-out metrics + reliability plots -> reports/
 
 app:         ## launch the Streamlit decision report
 	streamlit run app/streamlit_app.py
+
+api:         ## FastAPI backend for the Svelte UI (http://127.0.0.1:8000)
+	python -m uvicorn src.api:app --reload --host 127.0.0.1 --port 8000
 
 test:        ## unit tests incl. leakage guard
 	python -m pytest tests/ -q

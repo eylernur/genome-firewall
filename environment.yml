@@ -22,6 +22,9 @@ dependencies:
   - joblib
   # --- app + utils ---
   - streamlit
+  - fastapi
+  - uvicorn
+  - python-multipart
   - requests
   - pip
   - pip:
