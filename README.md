@@ -48,7 +48,10 @@ cd ui && cp .env.example .env.local && npm install && npm run dev
 Import **`eylernur/genowall`** on Vercel. In **Project Settings → General**:
 
 - **Framework Preset:** Vite (not FastAPI)
-- **Root Directory:** `ui`  ← important, or Vercel will try to deploy `src/api.py` as Python
+- **Root Directory:** `ui`  ← required (otherwise Vercel tries FastAPI)
+- **Install / Build / Output:** leave blank (uses `ui/vercel.json`: `npm ci`, `npm run build`, `dist`)
+
+Do **not** set Install Command to `npm ci --prefix ui` when Root Directory is already `ui`.
 
 | Piece | Where | Notes |
 |-------|--------|--------|
