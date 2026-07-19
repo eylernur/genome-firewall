@@ -292,5 +292,7 @@ More hand-holding: see [`SETUP.md`](SETUP.md).
 
 ## License & disclaimer
 
+Code is released under the [MIT License](LICENSE).
+
 Research / educational prototype for the Hack-Nation challenge.  
 **Not a medical device. Not for patient care.** Always confirm with standard AST.
