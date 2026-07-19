@@ -45,7 +45,10 @@ cd ui && cp .env.example .env.local && npm install && npm run dev
 
 ### Deploy (hackathon) — one GitHub repo
 
-Import **`eylernur/genowall`** on Vercel (not a second UI repo). Root `vercel.json` builds `ui/` only.
+Import **`eylernur/genowall`** on Vercel. In **Project Settings → General**:
+
+- **Framework Preset:** Vite (not FastAPI)
+- **Root Directory:** `ui`  ← important, or Vercel will try to deploy `src/api.py` as Python
 
 | Piece | Where | Notes |
 |-------|--------|--------|
