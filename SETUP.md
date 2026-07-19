@@ -85,7 +85,7 @@ make test
 
 ## If something breaks
 Paste the error into Cursor's chat (Agent mode) and say:
-"Fix this. Context: GENOME_FIREWALL_BUILD_PLAN.md and README.md."
+"Fix this. Context: GENOWALL_BUILD_PLAN.md and README.md."
 Use **Composer 2.5** for small fixes, switch to **Claude Opus / GPT-Codex** for hard ones.
 
 ## The two things to sanity-check on first run

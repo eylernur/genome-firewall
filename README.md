@@ -89,9 +89,9 @@ homology threshold, calibration method, and the no-call bands. Change scope ther
 
 - **BV-BRC** genomes + lab-measured AMR phenotypes — https://www.bv-brc.org/docs/quick_references/ftp.html
 - **AMRFinderPlus** (NCBI, public domain) — https://github.com/ncbi/amr/wiki
-- Optional DL stretch: HyenaDNA / DNABERT-2 on Hugging Face (see `GENOME_FIREWALL_BUILD_PLAN.md`).
+- Optional DL stretch: HyenaDNA / DNABERT-2 on Hugging Face (see `../GENOWALL_BUILD_PLAN.md`).
 
-See `../GENOME_FIREWALL_BUILD_PLAN.md` for the full spec, phases, and Codex prompts.
+See `../GENOWALL_BUILD_PLAN.md` for the full spec, phases, and Codex prompts.
 
 ## Metrics reported (judging)
 
