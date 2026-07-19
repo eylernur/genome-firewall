@@ -1,18 +1,34 @@
-# GenoWall UI (`ui/`)
+# GenoWall UI
 
-Svelte frontend — lives **inside** the main [`genowall`](https://github.com/eylernur/genowall) repo.
+Svelte + Vite front-end for [GenoWall](https://github.com/eylernur/genowall).
 
-Vercel builds this folder via the root `vercel.json`. Do not import a separate UI repository.
+Lives in the main repo under `ui/`. **Vercel Root Directory must be `ui`.**
 
 ## Local
 
 ```bash
-# from repo root — start API
-conda activate genowall && make api
+# terminal A — from repo root
+conda activate genowall
+make api
 
-# from ui/
-cp .env.example .env.local   # VITE_API_URL=http://127.0.0.1:8000
-npm install && npm run dev
+# terminal B — from ui/
+cp .env.example .env.local
+npm install
+npm run dev
 ```
 
-See the root [README](../README.md) for Vercel + ngrok deploy.
+Open http://127.0.0.1:5173
+
+| Env | Purpose |
+|-----|---------|
+| `VITE_API_URL` | FastAPI base (e.g. `http://127.0.0.1:8000`). If unset → preview/mock report. |
+
+## Scripts
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Dev server |
+| `npm run build` | Production build → `dist/` |
+| `npm run check` | Typecheck |
+
+Full docs: [../README.md](../README.md)

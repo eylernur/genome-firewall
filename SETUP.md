@@ -1,98 +1,97 @@
-# START HERE — do this top to bottom
+# SETUP — first-time walkthrough
 
-**The only folder you use:** `GenoWall/genowall`
-Everything lives here. Open THIS folder in Cursor and never leave it.
-
----
-
-## Step 1 — Open the project in Cursor
-Cursor → File → Open Folder → choose:
-`Downloads/GenoWall/genowall`
-
-Open the terminal inside Cursor: menu **Terminal → New Terminal**.
-Every command below goes in that terminal.
+Use the folder **`genowall`** (this repo). Open it in Cursor/VS Code and run commands in that terminal.
 
 ---
 
-## Step 2 — Install conda (only if you don't have it)
-Check first:
-```
+## 1. Install conda (if needed)
+
+```bash
 conda --version
 ```
-If it says "command not found", install Miniforge (Mac):
-```
-curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
-bash Miniforge3-MacOSX-arm64.sh
-```
-Close and reopen the terminal, then run `conda --version` again to confirm.
+
+If missing, install [Miniforge](https://github.com/conda-forge/miniforge), reopen the terminal, check again.
 
 ---
 
-## Step 3 — Build the environment (one time, ~5 min)
-```
+## 2. Create the environment (one time, ~5–15 min)
+
+```bash
 conda env create -f environment.yml
 conda activate genowall
 amrfinder --update
 ```
-This installs AMRFinderPlus, mash, cd-hit, scikit-learn, streamlit — all of it.
+
+Installs AMRFinderPlus, mash, scikit-learn, FastAPI, Streamlit, etc.
 
 ---
 
-## Step 4 — Add your OpenAI key (optional, for the explanation text)
+## 3. Run with shipped models (fastest)
+
+Models are already in `models/`. You only need the API + UI:
+
+```bash
+# terminal 1
+conda activate genowall
+make api
+
+# terminal 2
+cd ui
+cp .env.example .env.local
+npm install
+npm run dev
 ```
-export OPENAI_API_KEY=sk-your-key-here
-```
-Then open `config.yaml` and set `llm: enabled: true`.
-Skip this step entirely if you just want the core predictions working first.
+
+Browser → http://127.0.0.1:5173 → upload a FASTA.
 
 ---
 
-## Step 5 — Test the wiring with a tiny run
-```
+## 4. Optional — tiny pipeline smoke test
+
+```bash
+conda activate genowall
 make smoke
 ```
-This downloads ~20 genomes and runs part of the pipeline. If it finishes without
-a red error, the plumbing works.
 
-> If `make` isn't found on Mac: run `xcode-select --install`, or just run the
-> commands inside the Makefile directly (e.g. `python src/ingest_bvbrc.py --max-genomes 20`).
+Downloads ~20 genomes. If it finishes without a red error, ingest wiring works.
 
 ---
 
-## Step 6 — Run the full pipeline
-```
+## 5. Optional — full retrain
+
+```bash
 make all
 ```
-Order it runs: ingest → annotate → features → split → train → evaluate.
-Results land in `reports/metrics.md` and `reports/reliability_*.png`.
+
+Order: ingest → annotate → features → split → train → evaluate.  
+Can take many hours. Results → `reports/metrics.md`.
+
+Edit `config.yaml` first if you change species or drugs.
 
 ---
 
-## Step 7 — Launch the demo app
-```
+## 6. Optional — Streamlit instead of Svelte
+
+```bash
 make app
 ```
-A browser tab opens. Upload a genome FASTA → see the antibiotic report.
 
 ---
 
-## Step 8 — Check your work
-```
+## 7. Checks
+
+```bash
 make test
 ```
 
----
-
-## If something breaks
-Paste the error into Cursor's chat (Agent mode) and say:
-"Fix this. Context: GENOWALL_BUILD_PLAN.md and README.md."
-Use **Composer 2.5** for small fixes, switch to **Claude Opus / GPT-Codex** for hard ones.
-
-## The two things to sanity-check on first run
-1. `make ingest` — confirm the BV-BRC column names match those in `src/ingest_bvbrc.py`.
-2. After `make annotate` — confirm AMRFinderPlus TSV columns match `src/features.py`.
-Cursor can reconcile both in 2 minutes if they differ.
+Includes a leakage guard (clusters must not appear in more than one split).
 
 ---
 
-That's the whole thing. One folder, eight steps.
+## Common issues
+
+- **`make` missing on Mac:** `xcode-select --install`, or run the `python src/...` commands from the Makefile by hand.
+- **Wrong conda env:** always `conda activate genowall` (not the old `genome-firewall` name).
+- **Vercel:** Root Directory = `ui`, Framework = Vite. See main README.
+
+Full product docs: [README.md](README.md)

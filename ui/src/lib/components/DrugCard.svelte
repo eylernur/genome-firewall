@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { DrugResult } from '../types'
   import { EV_LABEL } from '../types'
+  import { formatConfidencePct, formatProbFail, gateLabel } from '../format'
 
   interface Props {
     result: DrugResult
@@ -15,15 +16,15 @@
   }
 
   const meta = $derived(styleMap[result.call] ?? styleMap['no-call'])
-  const confPct = $derived(
-    result.confidence == null ? null : Math.round(result.confidence * 100),
-  )
+  const confPct = $derived(formatConfidencePct(result.confidence))
+  const probLabel = $derived(formatProbFail(result.prob_fail))
   const geneNames = $derived(
     (result.detected_genes ?? []).map((g) => g.split(':').pop() ?? g),
   )
   const statNames = $derived(
     (result.statistical_features ?? []).map((f) => f.split(':').pop() ?? f),
   )
+  const gate = $derived(gateLabel(result.gate))
   let open = $state(false)
 </script>
 
@@ -38,7 +39,7 @@
     </div>
   {/if}
 
-  <p class="small">p(resistant) = {result.prob_fail ?? '—'}</p>
+  <p class="small">p(resistant) = {probLabel}</p>
   <p class="small">Evidence: {EV_LABEL[result.evidence_type ?? ''] ?? '—'}</p>
 
   {#if geneNames.length}
@@ -53,18 +54,21 @@
     <div class="chip stat">No-call: {result.nocall_reason}</div>
   {/if}
 
-  <button type="button" class="details" onclick={() => (open = !open)} aria-expanded={open}>
+  <button
+    type="button"
+    class="details no-print"
+    onclick={() => (open = !open)}
+    aria-expanded={open}
+  >
     {open ? 'Hide details' : 'Why / details'}
     <span aria-hidden="true">→</span>
   </button>
 
-  {#if open}
-    <div class="why">
-      {#if result.note}<p>{result.note}</p>{/if}
-      {#if result.prose}<p><strong>Summary:</strong> {result.prose}</p>{/if}
-      {#if result.gate}<p><strong>Drug-target check:</strong> {result.gate}</p>{/if}
-    </div>
-  {/if}
+  <div class="why" class:collapsed={!open}>
+    {#if result.note}<p>{result.note}</p>{/if}
+    {#if result.prose}<p><strong>Summary:</strong> {result.prose}</p>{/if}
+    {#if gate}<p><strong>Drug-target check:</strong> {gate}</p>{/if}
+  </div>
 </article>
 
 <style>
@@ -79,6 +83,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    break-inside: avoid;
   }
   .card.fail {
     border-top: 3px solid var(--fail);
@@ -185,8 +190,21 @@
     display: grid;
     gap: 0.4rem;
   }
+  .why.collapsed {
+    display: none;
+  }
   .why p {
     margin: 0;
+  }
+
+  @media print {
+    .why.collapsed {
+      display: grid;
+    }
+    .card {
+      box-shadow: none;
+      animation: none;
+    }
   }
 
   @keyframes rise {

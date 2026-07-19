@@ -27,6 +27,7 @@ export interface PredictReport {
   coverage_note: string
   lab_banner: string
   defensive_note: string
+  genome_id?: string
 }
 
 export const EV_LABEL: Record<string, string> = {

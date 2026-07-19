@@ -48,9 +48,9 @@
     onchange={(e) => take(e.currentTarget.files?.[0])}
   />
   <p class="eyebrow">Genome input</p>
-  <p class="title">Upload a reconstructed FASTA</p>
+  <p class="title">Analyze a genome</p>
   <p class="hint"><code>.fna</code> / <code>.fasta</code> · quality-checked assembly</p>
-  <span class="cta">{disabled ? 'Running…' : 'Choose file'}</span>
+  <span class="cta">{disabled ? 'Analyzing…' : 'Select genome'}</span>
 </div>
 
 <style>
