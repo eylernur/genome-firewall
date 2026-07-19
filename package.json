@@ -1,9 +1,0 @@
-{
-  "name": "genowall",
-  "private": true,
-  "description": "GenoWall — Vercel builds the Svelte UI in ui/; Python API is not deployed here.",
-  "scripts": {
-    "build": "npm run build --prefix ui",
-    "dev": "npm run dev --prefix ui"
-  }
-}
