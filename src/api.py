@@ -1,10 +1,10 @@
-"""FastAPI backend for Genome Firewall.
+"""FastAPI backend for GenoWall.
 
 Exposes the existing predict_report() pipeline over HTTP so a separate frontend
 (SvelteKit / React) can call it. Does NOT change any modeling code.
 
 Run:
-    conda activate genome-firewall
+    conda activate genowall
     python -m uvicorn src.api:app --reload --host 127.0.0.1 --port 8000
     # or: make api
 
@@ -27,7 +27,7 @@ from utils import load_config  # noqa: E402
 from predict import predict_report  # noqa: E402
 
 cfg = load_config()
-app = FastAPI(title="Genome Firewall API", version="1.0")
+app = FastAPI(title="GenoWall API", version="1.0")
 
 # allow the frontend dev server (Svelte/Vite default ports) to call us
 app.add_middleware(

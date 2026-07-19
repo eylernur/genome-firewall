@@ -1,4 +1,4 @@
-name: genome-firewall
+name: genowall
 channels:
   - conda-forge
   - bioconda

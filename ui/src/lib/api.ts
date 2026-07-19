@@ -22,7 +22,7 @@ export async function predictGenome(file: File): Promise<{ report: PredictReport
     res = await fetch(`${API_BASE}/predict`, { method: 'POST', body })
   } catch {
     throw new Error(
-      `Cannot reach API at ${API_BASE}. Start the backend with: cd ../genome-firewall && make api`,
+      `Cannot reach API at ${API_BASE}. Start the backend with: cd ../genowall && make api`,
     )
   }
   if (!res.ok) {

@@ -1,4 +1,4 @@
-"""Module 03: Genome Firewall — Decision Report app (polished UI).
+"""Module 03: GenoWall — Decision Report app (polished UI).
 
 Run:  streamlit run app/streamlit_app.py
 Upload a genome FASTA -> per-antibiotic report with calibrated confidence, evidence
@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from utils import load_config  # noqa: E402
 from predict import predict_report  # noqa: E402
 
-st.set_page_config(page_title="Genome Firewall", page_icon="🧬", layout="wide")
+st.set_page_config(page_title="GenoWall", page_icon="🧬", layout="wide")
 cfg = load_config()
 
 # ------------------------------------------------------------------ styling
@@ -72,7 +72,7 @@ st.markdown("""
 # ------------------------------------------------------------------ header
 st.markdown(f"""
 <div class="gf-hero">
-  <h1>🧬 Genome Firewall</h1>
+  <h1>🧬 GenoWall</h1>
   <p>An AI defense system against superbugs — predict which antibiotics may fail
      from a bacterial genome, <b>before</b> standard lab results arrive.</p>
 </div>

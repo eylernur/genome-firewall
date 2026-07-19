@@ -1,5 +1,5 @@
-# Genome Firewall — one-command pipeline. Activate the conda env first:
-#   conda env create -f environment.yml && conda activate genome-firewall && amrfinder --update
+# GenoWall — one-command pipeline. Activate the conda env first:
+#   conda env create -f environment.yml && conda activate genowall && amrfinder --update
 
 PY=python src
 

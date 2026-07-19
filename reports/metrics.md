@@ -1,4 +1,4 @@
-# Genome Firewall — held-out evaluation
+# GenoWall — held-out evaluation
 
 Species: **Klebsiella pneumoniae**  |  test genomes: 179
 

@@ -1,6 +1,6 @@
-# Genome Firewall — central config. Every module reads this.
+# GenoWall — central config. Every module reads this.
 project:
-  name: genome-firewall
+  name: genowall
   seed: 42
 
 # ---- Scope (do one species + a few drugs WELL) ----

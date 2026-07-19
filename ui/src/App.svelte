@@ -40,7 +40,7 @@
 <div class="page">
   <header class="hero">
     <p class="eyebrow">Clinical AI · Decision support</p>
-    <p class="brand">Genome Firewall</p>
+    <p class="brand">GenoWall</p>
     <h1>Which antibiotics may fail — from one genome.</h1>
     <p class="lede">
       Per-drug work / fail / no-call with calibrated confidence and honest evidence,

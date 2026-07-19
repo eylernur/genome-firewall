@@ -1,13 +1,13 @@
 # START HERE — do this top to bottom
 
-**The only folder you use:** `Genome firewall/genome-firewall`
+**The only folder you use:** `GenoWall/genowall`
 Everything lives here. Open THIS folder in Cursor and never leave it.
 
 ---
 
 ## Step 1 — Open the project in Cursor
 Cursor → File → Open Folder → choose:
-`Downloads/Genome firewall/genome-firewall`
+`Downloads/GenoWall/genowall`
 
 Open the terminal inside Cursor: menu **Terminal → New Terminal**.
 Every command below goes in that terminal.
@@ -31,7 +31,7 @@ Close and reopen the terminal, then run `conda --version` again to confirm.
 ## Step 3 — Build the environment (one time, ~5 min)
 ```
 conda env create -f environment.yml
-conda activate genome-firewall
+conda activate genowall
 amrfinder --update
 ```
 This installs AMRFinderPlus, mash, cd-hit, scikit-learn, streamlit — all of it.

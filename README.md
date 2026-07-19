@@ -1,4 +1,4 @@
-# 🧬 Genome Firewall
+# 🧬 GenoWall
 
 An AI defense system against superbugs. Given **one reconstructed bacterial genome (FASTA)**,
 it predicts — for each of a few antibiotics — whether the drug is **likely to work**,
@@ -25,7 +25,7 @@ designs, modifies, strengthens, or optimizes an organism.
 ```bash
 # 1. environment (installs AMRFinderPlus, mash, cd-hit, sklearn, streamlit ...)
 conda env create -f environment.yml
-conda activate genome-firewall
+conda activate genowall
 amrfinder --update          # one-time: download the AMR database
 
 # 2. full pipeline (edit config.yaml first: species + antibiotics)
@@ -45,7 +45,7 @@ cd ui && cp .env.example .env.local && npm install && npm run dev
 
 ### Deploy (hackathon) — one GitHub repo
 
-Import **`eylernur/genome-firewall`** on Vercel (not a second UI repo). Root `vercel.json` builds `ui/` only.
+Import **`eylernur/genowall`** on Vercel (not a second UI repo). Root `vercel.json` builds `ui/` only.
 
 | Piece | Where | Notes |
 |-------|--------|--------|

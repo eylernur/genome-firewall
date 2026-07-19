@@ -62,7 +62,7 @@ def evaluate(cfg):
     targets = load_drug_targets(cfg)
     reports_dir = resolve("reports")
 
-    lines = ["# Genome Firewall — held-out evaluation\n",
+    lines = ["# GenoWall — held-out evaluation\n",
              f"Species: **{cfg['species']['name']}**  |  test genomes: {len(splits['test'])}\n"]
     per_drug_tables = []
 
