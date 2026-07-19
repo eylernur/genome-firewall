@@ -34,6 +34,9 @@ app:         ## launch the Streamlit decision report
 api:         ## FastAPI backend for the Svelte UI (http://127.0.0.1:8000)
 	python -m uvicorn src.api:app --reload --host 127.0.0.1 --port 8000
 
+api-public:  ## bind 0.0.0.0 for remote clients (EC2 / ngrok / Vercel UI)
+	python -m uvicorn src.api:app --host 0.0.0.0 --port 8000
+
 test:        ## unit tests incl. leakage guard
 	python -m pytest tests/ -q
 

@@ -55,6 +55,12 @@ npm install && npm run dev
 
 `POST /predict` accepts a FASTA upload and returns the same JSON as `predict_report()`.
 
+### Deploy (hackathon)
+
+- **UI → Vercel** (static Vite build). Set env `VITE_API_URL` to your public API base.
+- **API → not Vercel.** Predictions need AMRFinder + conda + ~1–2 min CPU. Run on a laptop (`make api-public` + [ngrok](https://ngrok.com) for HTTPS) or EC2/VM with HTTPS.
+- Browser calls the API **directly** (CORS is open). Vercel HTTPS pages require an **HTTPS** API URL (mixed content otherwise).
+
 ## Configuration
 
 Everything is driven by `config.yaml`: species, antibiotic list, feature thresholds,
